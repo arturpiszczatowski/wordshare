@@ -7,6 +7,9 @@ import com.pjatk.wordshare.repository.PoemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -32,8 +35,11 @@ public class PoemController {
     // create poem
     @PostMapping
     public Poem createPoem(@RequestBody Poem poem, User user){
+        Date currDate = new Date ();
+        Instant inst = Instant.now ();
         poem.setRanking (0);
         poem.setUser (user);
+        poem.setDate(currDate.from(inst));
         return this.poemRepository.save(poem);
     }
 

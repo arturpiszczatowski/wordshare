@@ -1,6 +1,7 @@
 package com.pjatk.wordshare.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
@@ -12,6 +13,9 @@ public class Comment {
 
     @Column(name = "content")
     private String content;
+
+    @Column(name = "date")
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")
@@ -62,4 +66,11 @@ public class Comment {
         this.poem = poem;
     }
 
+    public Date getDate () {
+        return date;
+    }
+
+    public void setDate (Date date) {
+        this.date = date;
+    }
 }
