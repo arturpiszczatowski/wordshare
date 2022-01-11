@@ -18,7 +18,7 @@ public class PoemController {
 
     // get all poems
     @GetMapping
-    public List<Poem> getAllPoemss(){
+    public List<Poem> getAllPoems(){
         return this.poemRepository.findAll();
     }
 
