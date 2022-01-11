@@ -5,20 +5,23 @@ import com.pjatk.wordshare.exception.ResourceNotFoundException;
 import com.pjatk.wordshare.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder ();
+
     @Autowired
     private UserRepository userRepository;
 
     // get all users
     @GetMapping
-    public List<User> getAllUserss(){
+    public List<User> getAllUsers(){
         return this.userRepository.findAll();
     }
 
@@ -32,7 +35,13 @@ public class UserController {
     // create user
     @PostMapping
     public User createUser(@RequestBody User user){
-        return this.userRepository.save(user);
+        User newUser = new User ();
+        newUser.setEmail (user.getEmail ());
+        newUser.setFirstName (user.getFirstName ());
+        newUser.setLastName (user.getLastName ());
+        newUser.setUsername (user.getUsername ());
+        newUser.setPassword (passwordEncoder.encode(user.getPassword ()));
+        return this.userRepository.save(newUser);
     }
 
     // update user
@@ -40,9 +49,10 @@ public class UserController {
     public User updateUser(@RequestBody User user, @PathVariable("id") long userId){
         User existingUser = this.userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id :" + userId));
-        existingUser.setFirstName(user.getFirstName());
-        existingUser.setLastName(user.getLastName());
-        existingUser.setEmail(user.getEmail());
+        if(user.getFirstName () != null) existingUser.setFirstName(user.getFirstName());
+        if(user.getLastName () != null) existingUser.setLastName(user.getLastName());
+        if(user.getEmail () != null) existingUser.setEmail (user.getEmail ());
+        if(user.getPassword () != null) existingUser.setPassword (passwordEncoder.encode(user.getPassword ()));
         return this.userRepository.save(existingUser);
     }
 

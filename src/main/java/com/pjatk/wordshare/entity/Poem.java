@@ -1,6 +1,7 @@
 package com.pjatk.wordshare.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "poems")
@@ -15,6 +16,9 @@ public class Poem {
 
     @Column(name = "ranking")
     private int ranking;
+
+    @Column(name = "date")
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")
@@ -59,5 +63,14 @@ public class Poem {
 
     public void setUser (User user) {
         this.user = user;
+    }
+
+
+    public Date getDate () {
+        return date;
+    }
+
+    public void setDate (Date date) {
+        this.date = date;
     }
 }
