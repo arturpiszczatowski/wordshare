@@ -20,11 +20,9 @@ public class Poem {
     @JoinColumn(name = "creator_id")
     private User user;
 
-    public Poem (Long id, String content, int ranking, User user) {
-        this.id = id;
+    public Poem (String content) {
+        super();
         this.content = content;
-        this.ranking = ranking;
-        this.user = user;
     }
 
     public Poem () {

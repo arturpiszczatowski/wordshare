@@ -21,11 +21,9 @@ public class Comment {
     @JoinColumn(name = "poem_id")
     private Poem poem;
 
-    public Comment (Long id, String content, User user, Poem poem) {
-        this.id = id;
+    public Comment(String content) {
+        super();
         this.content = content;
-        this.user = user;
-        this.poem = poem;
     }
 
     public Comment () {
