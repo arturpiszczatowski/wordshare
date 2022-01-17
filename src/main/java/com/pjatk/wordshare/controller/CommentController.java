@@ -6,7 +6,8 @@ import com.pjatk.wordshare.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,9 @@ public class CommentController {
     // create user
     @PostMapping
     public Comment createComment(@RequestBody Comment comment){
+        Date currDate = new Date ();
+        Instant inst = Instant.now ();
+        comment.setDate (currDate.from(inst));
         return this.commentRepository.save(comment);
     }
 
@@ -40,6 +44,10 @@ public class CommentController {
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id :" + commentId));
         existingComment.setContent(comment.getContent());
         existingComment.setDate(comment.getDate());
+        if(existingComment.getContent () != null) existingComment.setContent(comment.getContent());
+        Date currDate = new Date ();
+        Instant inst = Instant.now ();
+        comment.setDate (currDate.from(inst));
         return this.commentRepository.save(existingComment);
     }
 
@@ -52,3 +60,4 @@ public class CommentController {
         return ResponseEntity.ok().build();
     }
 }
+
