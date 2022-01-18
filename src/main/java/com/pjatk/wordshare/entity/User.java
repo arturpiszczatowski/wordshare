@@ -1,7 +1,13 @@
 package com.pjatk.wordshare.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -26,7 +32,10 @@ public class User {
     @Column(name = "login_password")
     private String password;
 
-    public User(){
+    @Column(name = "authority")
+    private String authority;
+
+    public User() {
 
     }
 
@@ -71,19 +80,51 @@ public class User {
         this.email = email;
     }
 
-    public String getUsername () {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername (String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPassword () {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword (String password) {
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays
+                .stream(this.authority.split(","))
+                .map(String::trim)
+                .filter(authority -> !authority.equals(""))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    public void addAuthority(GrantedAuthority authority) {
+        String newAuthority = authority.getAuthority().trim();
+        String currentAuthorities = this.authority == null ? "" : (this.authority + ",");
+        this.authority = currentAuthorities + newAuthority;
+    }
+
+    public void removeAuthority(GrantedAuthority authority) {
+        String deletedAuthority = authority.getAuthority().trim();
+        String remainingAuthorities = this.authority.replace(deletedAuthority, "")
+                .replace(",,", "")
+                .trim();
+        this.authority = remainingAuthorities;
     }
 }
