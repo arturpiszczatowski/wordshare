@@ -2,14 +2,20 @@ package com.pjatk.wordshare.service;
 
 import com.pjatk.wordshare.entity.Comment;
 import com.pjatk.wordshare.entity.Poem;
+import com.pjatk.wordshare.entity.User;
+import com.pjatk.wordshare.exception.ResourceNotFoundException;
+import com.pjatk.wordshare.repository.PoemRepository;
 import com.pjatk.wordshare.view.PoemView;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.Entity;
+import org.springframework.web.bind.annotation.RequestBody;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,10 +24,12 @@ public class PoemService {
 
     private final EntityManager entityManager;
     private final CommentService commentService;
+    private final PoemRepository poemRepository;
 
-    public PoemService(EntityManager entityManager, CommentService commentService) {
+    public PoemService(EntityManager entityManager, CommentService commentService, PoemRepository poemRepository) {
         this.entityManager = entityManager;
         this.commentService = commentService;
+        this.poemRepository = poemRepository;
     }
 
     public PoemView viewPoem(Long id, HttpServletResponse response){
@@ -40,7 +48,67 @@ public class PoemService {
             return new PoemView(poem.getId(), poem.getContent(), poem.getDate(), poemComments);
         }
     }
-}
+
+    public void createPoem(@RequestBody Poem poem, HttpServletResponse response){
+        if(poem.getContent() == null){
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+        }else {
+            User currentUser = findCurrentUser();
+            Poem newPoem = new Poem();
+            Date currDate = new Date();
+            Instant inst = Instant.now();
+            newPoem.setRanking(0);
+            newPoem.setUser(currentUser);
+            newPoem.setDate(currDate.from(inst));
+            newPoem.setContent(poem.getContent());
+            response.setStatus(HttpStatus.CREATED.value());
+            entityManager.persist(newPoem);
+        }
+    }
+
+    public Poem editPoem(@RequestBody Poem poem, HttpServletResponse response, long poemId){
+        User currentUser = findCurrentUser();
+        Poem existingPoem = entityManager.find(Poem.class, poemId);
+        if(existingPoem==null) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return null;
+        }else{
+            if(currentUser.getId()==existingPoem.getUser().getId()) {
+                if(poem.getContent() != null) {
+                    existingPoem.setContent(poem.getContent());
+                }
+                Date currDate = new Date ();
+                Instant inst = Instant.now ();
+                existingPoem.setDate(currDate.from(inst));
+                entityManager.merge(existingPoem);
+                response.setStatus(HttpStatus.OK.value());
+                return existingPoem;
+            }else{
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                return null;
+            }
+        }
+    }
+
+    public void deletePoem(@RequestBody Poem poem, HttpServletResponse response, long poemId){
+
+    }
+
+    public String getCurrentUsername() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof User) {
+            String username = ((User) principal).getUsername();
+            return username;
+        }else {
+            return principal.toString();
+        }
+    }
+
+    private User findCurrentUser() {
+        return entityManager.createQuery("SELECT user FROM User user WHERE user.username= :username", User.class)
+                .setParameter ("username", getCurrentUsername())
+                .getSingleResult ();
+    }
 
     public HashMap<Long,String> getComments(Poem poem){
         HashMap<Long,String> comments = new HashMap<>();

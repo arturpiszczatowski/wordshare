@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 @Service
 public class CommentService {
 
-    private final EntityManager entityManager;
 
 
 }
