@@ -8,7 +8,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "first_name")
@@ -23,7 +23,7 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "login_password")
     private String password;
 
     public User(){
@@ -39,11 +39,11 @@ public class User {
         this.password = password;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
