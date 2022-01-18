@@ -1,5 +1,0 @@
-com\pjatk\wordshare\controller\UserController.class
-com\pjatk\wordshare\exception\ResourceNotFoundException.class
-com\pjatk\wordshare\repository\UserRepository.class
-com\pjatk\wordshare\entity\User.class
-com\pjatk\wordshare\WordshareApplication.class
