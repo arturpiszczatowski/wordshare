@@ -23,18 +23,14 @@ import java.util.List;
 public class PoemService {
 
     private final EntityManager entityManager;
-    private final CommentService commentService;
-    private final PoemRepository poemRepository;
 
-    public PoemService(EntityManager entityManager, CommentService commentService, PoemRepository poemRepository) {
+    public PoemService(EntityManager entityManager, CommentService commentService) {
         this.entityManager = entityManager;
-        this.commentService = commentService;
-        this.poemRepository = poemRepository;
     }
 
     public PoemView viewPoem(Long id, HttpServletResponse response){
         Poem poem = entityManager.find(Poem.class, id);
-        if(poem==null){
+        if(poem == null){
             response.setStatus(HttpStatus.NOT_FOUND.value());
             return null;
         }else{
@@ -50,19 +46,23 @@ public class PoemService {
     }
 
     public void createPoem(@RequestBody Poem poem, HttpServletResponse response){
-        if(poem.getContent() == null){
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+        User currentUser = findCurrentUser();
+        if(currentUser == null){
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }else {
-            User currentUser = findCurrentUser();
-            Poem newPoem = new Poem();
-            Date currDate = new Date();
-            Instant inst = Instant.now();
-            newPoem.setRanking(0);
-            newPoem.setUser(currentUser);
-            newPoem.setDate(currDate.from(inst));
-            newPoem.setContent(poem.getContent());
-            response.setStatus(HttpStatus.CREATED.value());
-            entityManager.persist(newPoem);
+            if (poem.getContent() == null) {
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+            } else {
+                Poem newPoem = new Poem();
+                Date currDate = new Date();
+                Instant inst = Instant.now();
+                newPoem.setRanking(0);
+                newPoem.setUser(currentUser);
+                newPoem.setDate(currDate.from(inst));
+                newPoem.setContent(poem.getContent());
+                response.setStatus(HttpStatus.CREATED.value());
+                entityManager.persist(newPoem);
+            }
         }
     }
 
@@ -76,13 +76,16 @@ public class PoemService {
             if(currentUser.getId()==existingPoem.getUser().getId()) {
                 if(poem.getContent() != null) {
                     existingPoem.setContent(poem.getContent());
+                    Date currDate = new Date();
+                    Instant inst = Instant.now();
+                    existingPoem.setDate(currDate.from(inst));
+                    entityManager.merge(existingPoem);
+                    response.setStatus(HttpStatus.OK.value());
+                    return existingPoem;
+                }else {
+                    response.setStatus(HttpStatus.BAD_REQUEST.value());
+                    return null;
                 }
-                Date currDate = new Date ();
-                Instant inst = Instant.now ();
-                existingPoem.setDate(currDate.from(inst));
-                entityManager.merge(existingPoem);
-                response.setStatus(HttpStatus.OK.value());
-                return existingPoem;
             }else{
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 return null;
@@ -90,8 +93,19 @@ public class PoemService {
         }
     }
 
-    public void deletePoem(@RequestBody Poem poem, HttpServletResponse response, long poemId){
-
+    public void deletePoem(HttpServletResponse response, long poemId){
+        User currentUser = findCurrentUser();
+        Poem existingPoem = entityManager.find(Poem.class, poemId);
+        if(existingPoem==null) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+        }else {
+            if (currentUser != null && currentUser.getId() == existingPoem.getUser().getId()) {
+                entityManager.remove(existingPoem);
+                response.setStatus(HttpStatus.ACCEPTED.value());
+            } else {
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            }
+        }
     }
 
     public String getCurrentUsername() {

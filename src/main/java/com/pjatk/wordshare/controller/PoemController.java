@@ -52,10 +52,7 @@ public class PoemController {
 
     // delete poem by id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Poem> deletePoem(@PathVariable (value = "id" ) long poemId){
-        Poem existingPoem = this.poemRepository.findById(poemId)
-                .orElseThrow(() -> new ResourceNotFoundException("Poem not found with id :" + poemId));
-        this.poemRepository.delete(existingPoem);
-        return ResponseEntity.ok().build();
+    public void deletePoem(HttpServletResponse response, @PathVariable (value = "id" ) long poemId){
+        poemService.deletePoem(response, poemId);
     }
 }
