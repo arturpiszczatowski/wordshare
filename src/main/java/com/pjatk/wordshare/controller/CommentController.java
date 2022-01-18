@@ -1,11 +1,15 @@
 package com.pjatk.wordshare.controller;
 
 import com.pjatk.wordshare.entity.Comment;
+import com.pjatk.wordshare.request.CommentRequest;
 import com.pjatk.wordshare.exception.ResourceNotFoundException;
 import com.pjatk.wordshare.repository.CommentRepository;
+import com.pjatk.wordshare.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +20,13 @@ public class CommentController {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    private CommentService commentService;
+
+    public CommentController(CommentRepository commentRepository, CommentService commentService) {
+        this.commentRepository = commentRepository;
+        this.commentService = commentService;
+    }
 
     @GetMapping
     public List<Comment> getAllComments(){
@@ -28,36 +39,22 @@ public class CommentController {
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id :" + commentId));
     }
 
-    // create user
+    // create comment
     @PostMapping
-    public Comment createComment(@RequestBody Comment comment){
-        Date currDate = new Date ();
-        Instant inst = Instant.now ();
-        comment.setDate (currDate.from(inst));
-        return this.commentRepository.save(comment);
+    public void createComment(@RequestBody CommentRequest commentRequest, HttpServletResponse response){
+        commentService.createComment(commentRequest, response);
     }
 
-    // update user
+    // update comment
     @PutMapping("/{id}")
-    public Comment updateComment(@RequestBody Comment comment, @PathVariable("id") long commentId){
-        Comment existingComment = this.commentRepository.findById(commentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id :" + commentId));
-        existingComment.setContent(comment.getContent());
-        existingComment.setDate(comment.getDate());
-        if(existingComment.getContent () != null) existingComment.setContent(comment.getContent());
-        Date currDate = new Date ();
-        Instant inst = Instant.now ();
-        comment.setDate (currDate.from(inst));
-        return this.commentRepository.save(existingComment);
+    public void updateComment(@RequestBody CommentRequest commentRequest, @PathVariable("id") long commentId, HttpServletResponse response){
+        commentService.editComment(commentRequest, commentId, response);
     }
 
-    // delete user by id
+    // delete comment by id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Comment> deleteUser(@PathVariable (value = "id" ) long commentId){
-        Comment existingComment = this.commentRepository.findById(commentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id :" + commentId));
-        this.commentRepository.delete(existingComment);
-        return ResponseEntity.ok().build();
+    public void deleteUser(@PathVariable (value = "id" ) long commentId, HttpServletResponse response){
+        commentService.deleteComment(response, commentId);
     }
 }
 
