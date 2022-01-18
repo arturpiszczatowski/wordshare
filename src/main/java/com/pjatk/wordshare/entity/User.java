@@ -39,6 +39,13 @@ public class User {
 
     }
 
+    public User(String username, String password, String authority){
+        super();
+        this.username = username;
+        this.password = password;
+        this.authority = authority;
+    }
+
     public User(String firstName, String lastName, String email, String username, String password) {
         super();
         this.firstName = firstName;
