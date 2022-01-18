@@ -26,6 +26,9 @@ public class User {
     @Column(name = "login_password")
     private String password;
 
+    @Column(name = "authority")
+    private String authority;
+
     public User(){
 
     }
@@ -86,4 +89,8 @@ public class User {
     public void setPassword (String password) {
         this.password = password;
     }
+
+    public String getAuthority() { return authority; }
+
+    public void setAuthority(String authority) { this.authority = authority; }
 }
