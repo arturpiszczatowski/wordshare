@@ -17,7 +17,7 @@ public class Poem {
     @Column(name = "ranking")
     private int ranking;
 
-    @Column(name = "date")
+    @Column(name = "post_date")
     private Date date;
 
     @ManyToOne
