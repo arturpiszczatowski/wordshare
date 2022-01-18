@@ -10,4 +10,7 @@ public class CommentService {
     private final EntityManager entityManager;
 
 
+    public CommentService(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 }
