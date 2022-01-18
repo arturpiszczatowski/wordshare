@@ -4,11 +4,12 @@ import com.pjatk.wordshare.entity.Poem;
 import com.pjatk.wordshare.entity.User;
 import com.pjatk.wordshare.exception.ResourceNotFoundException;
 import com.pjatk.wordshare.repository.PoemRepository;
+import com.pjatk.wordshare.service.PoemService;
+import com.pjatk.wordshare.view.PoemView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.time.Instant;
-import java.util.Date;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -18,6 +19,13 @@ public class PoemController {
     @Autowired
     private PoemRepository poemRepository;
 
+    PoemService poemService;
+
+    public PoemController(PoemRepository poemRepository, PoemService poemService) {
+        this.poemRepository = poemRepository;
+        this.poemService = poemService;
+    }
+
     // get all poems
     @GetMapping
     public List<Poem> getAllPoems(){
@@ -26,37 +34,25 @@ public class PoemController {
 
     // get poem by id
     @GetMapping("/{id}")
-    public Poem getPoemById(@PathVariable(value = "id" ) long poemId){
-        return this.poemRepository.findById(poemId)
-                .orElseThrow(() -> new ResourceNotFoundException ("Poem not found with id :" + poemId));
+    public PoemView getPoemById(@PathVariable(value = "id" ) long poemId, HttpServletResponse response){
+        return poemService.viewPoem(poemId, response);
     }
 
     // create poem
     @PostMapping
-    public Poem createPoem(@RequestBody Poem poem, User user){
-        Date currDate = new Date ();
-        Instant inst = Instant.now ();
-        poem.setRanking (0);
-        poem.setUser (user);
-        poem.setDate(currDate.from(inst));
-        return this.poemRepository.save(poem);
+    public void createPoem(@RequestBody Poem poem, HttpServletResponse response){
+        poemService.createPoem(poem, response);
     }
 
     // update poem
     @PutMapping("/{id}")
-    public Poem updatePoem(@RequestBody Poem poem, @PathVariable("id") long poemId){
-        Poem existingPoem = this.poemRepository.findById(poemId)
-                .orElseThrow(() -> new ResourceNotFoundException("Poem not found with id :" + poemId));
-        existingPoem.setContent (poem.getContent());
-        return this.poemRepository.save(existingPoem);
+    public Poem updatePoem(@RequestBody Poem poem, @PathVariable("id") long poemId, HttpServletResponse response){
+        return poemService.editPoem(poem, response, poemId);
     }
 
     // delete poem by id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Poem> deletePoem(@PathVariable (value = "id" ) long poemId){
-        Poem existingPoem = this.poemRepository.findById(poemId)
-                .orElseThrow(() -> new ResourceNotFoundException("Poem not found with id :" + poemId));
-        this.poemRepository.delete(existingPoem);
-        return ResponseEntity.ok().build();
+    public void deletePoem(HttpServletResponse response, @PathVariable (value = "id" ) long poemId){
+        poemService.deletePoem(response, poemId);
     }
 }
