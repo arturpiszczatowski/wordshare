@@ -12,4 +12,14 @@ public class MainController {
     public String homePage(Model model) {
         return "home";
     }
+
+    @GetMapping("/login")
+    public String loginPage(Model model){
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String registerPage(Model model){
+        return "register";
+    }
 }
