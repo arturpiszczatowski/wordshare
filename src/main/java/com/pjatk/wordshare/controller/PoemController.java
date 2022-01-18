@@ -33,11 +33,11 @@ public class PoemController {
 
     // create poem
     @PostMapping
-    public Poem createPoem(@RequestBody Poem poem, User user){
+    public Poem createPoem(@RequestBody Poem poem){
         Date currDate = new Date ();
         Instant inst = Instant.now ();
         poem.setRanking (0);
-        poem.setUser (user);
+        // poem.setUser (user);
         poem.setDate(currDate.from(inst));
         return this.poemRepository.save(poem);
     }
