@@ -1,6 +1,7 @@
 package com.pjatk.wordshare.controller;
 
 import com.pjatk.wordshare.security.AuthenticationService;
+import com.pjatk.wordshare.service.PoemService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -13,13 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 public class MainController {
 
     AuthenticationService authenticationService;
+    PoemService poemService;
 
-    public MainController(AuthenticationService authenticationService) {
+    public MainController(AuthenticationService authenticationService, PoemService poemService) {
         this.authenticationService = authenticationService;
+        this.poemService = poemService;
     }
 
     @GetMapping("/")
-    public String homePage(Model model) {
+    public String homePage(Model model, HttpServletResponse response) {
+        model.addAttribute("poems", poemService.viewAll(response));
         return "home";
     }
 
@@ -28,6 +32,7 @@ public class MainController {
         if(authenticationService.isAuthenticated()){
             return "home";
         }
+
         return "login";
     }
 

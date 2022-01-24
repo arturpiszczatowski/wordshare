@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +24,11 @@ import java.util.List;
 public class PoemService {
 
     private final EntityManager entityManager;
+    private final PoemRepository poemRepository;
 
-    public PoemService(EntityManager entityManager, CommentService commentService) {
+    public PoemService(EntityManager entityManager, PoemRepository poemRepository) {
         this.entityManager = entityManager;
+        this.poemRepository = poemRepository;
     }
 
     public PoemView view(Long id, HttpServletResponse response){
@@ -43,6 +46,28 @@ public class PoemService {
             response.setStatus(HttpStatus.OK.value());
             return new PoemView(poem.getId(), poem.getContent(), poem.getDate(), poemComments);
         }
+    }
+
+    public List<PoemView> viewAll(HttpServletResponse response){
+        List<Poem> poemList = poemRepository.findAll();
+        List<PoemView> poemViewList = new ArrayList<>();
+        if(poemList.isEmpty()){
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return null;
+        }else{
+            for(Poem poem : poemList) {
+                HashMap<Long, String> poemComments = new HashMap<>();
+                try {
+                    poemComments = getComments(poem);
+                } catch (NoResultException e) {
+                    e.printStackTrace();
+                }
+                response.setStatus(HttpStatus.OK.value());
+                PoemView newView = new PoemView(poem.getId(), poem.getContent(), poem.getDate(), poemComments);
+                poemViewList.add(newView);
+            }
+        }
+        return poemViewList;
     }
 
     public void create(Poem poem, HttpServletResponse response){

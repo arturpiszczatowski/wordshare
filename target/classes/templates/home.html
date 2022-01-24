@@ -22,6 +22,11 @@
             </div>
         </nav>
 
+    <ul>
+        <li th:each="poem :${poems}">
+            <span th:text="${poem.content}">Default</span>
+        </li>
+    </ul>
 
 
 

@@ -16,14 +16,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll ()
                 .antMatchers("/login").permitAll ()
                 .antMatchers("/register").permitAll ()
+                .antMatchers("/profile").hasAuthority("ROLE_USER")
+                .antMatchers("/api/poem").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.POST,"/api/poem").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.PUT,"/api/poem").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.DELETE,"/api/poem").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.POST,"/api/comment").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.PUT,"/api/comment").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.DELETE,"/api/comment").hasAuthority("ROLE_USER")
-                .antMatchers("/profile").hasAuthority("ROLE_USER")
-                .antMatchers("/api/*").hasAuthority("ROLE_ADMIN")
                 .and().csrf().disable();
     }
 }
