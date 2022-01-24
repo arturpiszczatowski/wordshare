@@ -1,15 +1,13 @@
 package com.pjatk.wordshare.controller;
 
 import com.pjatk.wordshare.entity.Poem;
-import com.pjatk.wordshare.entity.User;
-import com.pjatk.wordshare.exception.ResourceNotFoundException;
 import com.pjatk.wordshare.repository.PoemRepository;
 import com.pjatk.wordshare.service.PoemService;
 import com.pjatk.wordshare.view.PoemView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -17,9 +15,9 @@ import java.util.List;
 public class PoemController {
 
     @Autowired
-    private PoemRepository poemRepository;
+    private final PoemRepository poemRepository;
 
-    PoemService poemService;
+    private final PoemService poemService;
 
     public PoemController(PoemRepository poemRepository, PoemService poemService) {
         this.poemRepository = poemRepository;
@@ -35,24 +33,27 @@ public class PoemController {
     // get poem by id
     @GetMapping("/{id}")
     public PoemView getPoemById(@PathVariable(value = "id" ) long poemId, HttpServletResponse response){
-        return poemService.viewPoem(poemId, response);
+        return poemService.guwno(poemId, response); ///viewPoem
     }
 
     // create poem
     @PostMapping
-    public void createPoem(@RequestBody Poem poem, HttpServletResponse response){
-        poemService.createPoem(poem, response);
+    @Transactional
+    public void postPoem(@RequestBody Poem poem, HttpServletResponse response){
+        poemService.create(poem, response);
     }
 
     // update poem
     @PutMapping("/{id}")
-    public Poem updatePoem(@RequestBody Poem poem, @PathVariable("id") long poemId, HttpServletResponse response){
-        return poemService.editPoem(poem, response, poemId);
+    @Transactional
+    public Poem putPoem(@RequestBody Poem poem, @PathVariable("id") long poemId, HttpServletResponse response){
+        return poemService.edit(poem, response, poemId);
     }
 
     // delete poem by id
     @DeleteMapping("/{id}")
-    public void deletePoem(HttpServletResponse response, @PathVariable (value = "id" ) long poemId){
-        poemService.deletePoem(response, poemId);
+    @Transactional
+    public void removePoem(HttpServletResponse response, @PathVariable (value = "id" ) long poemId){
+        poemService.delete(response, poemId);
     }
 }

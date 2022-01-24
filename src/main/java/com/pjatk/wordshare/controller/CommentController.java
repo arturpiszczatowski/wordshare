@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -41,20 +42,23 @@ public class CommentController {
 
     // create comment
     @PostMapping
+    @Transactional
     public void createComment(@RequestBody CommentRequest commentRequest, HttpServletResponse response){
-        commentService.createComment(commentRequest, response);
+        commentService.create(commentRequest, response);
     }
 
     // update comment
     @PutMapping("/{id}")
+    @Transactional
     public void updateComment(@RequestBody CommentRequest commentRequest, @PathVariable("id") long commentId, HttpServletResponse response){
-        commentService.editComment(commentRequest, commentId, response);
+        commentService.edit(commentRequest, commentId, response);
     }
 
     // delete comment by id
     @DeleteMapping("/{id}")
+    @Transactional
     public void deleteUser(@PathVariable (value = "id" ) long commentId, HttpServletResponse response){
-        commentService.deleteComment(response, commentId);
+        commentService.delete(response, commentId);
     }
 }
 

@@ -23,29 +23,33 @@ public class CommentService {
         this.entityManager = entityManager;
     }
 
-    public void createComment(@RequestBody CommentRequest commentRequest, HttpServletResponse response){
+    public void create(@RequestBody CommentRequest commentRequest, HttpServletResponse response){
         Comment comment = new Comment();
         User currentUser = findCurrentUser();
         Poem poem = entityManager.find(Poem.class, commentRequest.getPoem_id());
         if(currentUser == null){
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }else {
-            if(comment.getContent() != null && poem != null) {
-                Date currDate = new Date();
-                Instant inst = Instant.now();
-                comment.setDate(currDate.from(inst));
-                comment.setContent(commentRequest.getContent());
-                comment.setUser(currentUser);
-                comment.setPoem(poem);
-                entityManager.persist(comment);
-                response.setStatus(HttpStatus.CREATED.value());
-            } else{
-                response.setStatus(HttpStatus.BAD_REQUEST.value());
+            if(poem == null){
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+            }else {
+                if (commentRequest.getContent() != null) {
+                    Date currDate = new Date();
+                    Instant inst = Instant.now();
+                    comment.setDate(currDate.from(inst));
+                    comment.setContent(commentRequest.getContent());
+                    comment.setUser(currentUser);
+                    comment.setPoem(poem);
+                    entityManager.persist(comment);
+                    response.setStatus(HttpStatus.CREATED.value());
+                } else {
+                    response.setStatus(HttpStatus.BAD_REQUEST.value());
+                }
             }
         }
     }
 
-    public void editComment(@RequestBody CommentRequest commentRequest, long commentId, HttpServletResponse response){
+    public void edit(@RequestBody CommentRequest commentRequest, long commentId, HttpServletResponse response){
         User currentUser = findCurrentUser();
         Comment existingComment = entityManager.find(Comment.class, commentId);
         if(existingComment == null){
@@ -68,7 +72,7 @@ public class CommentService {
         }
     }
 
-    public void deleteComment(HttpServletResponse response, long commentId) {
+    public void delete(HttpServletResponse response, long commentId) {
         User currentUser = findCurrentUser();
         Comment existingComment = entityManager.find(Comment.class, commentId);
         if(existingComment == null){
