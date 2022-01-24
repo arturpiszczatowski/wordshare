@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/poems")
+@RequestMapping("/api/poem")
 public class PoemController {
 
     @Autowired
