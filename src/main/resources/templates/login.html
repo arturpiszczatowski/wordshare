@@ -17,13 +17,13 @@
         </div>
 
         <div th:if="${param.logout}">
-            <p class="text-warning">You have been logged out.</p>
+            <p class="text-warning">Wylogowano.</p>
         </div>
 
         <div class="border border-secondary p-3 rounded">
-            <p>Access to Shopme Control Panel</p>
+            <p>Logowanie do WordShare</p>
             <p>
-                <input type="email" name="email" class="form-control" placeholder="E-mail" required autofocus/>
+                <input type="text" name="username" class="form-control" placeholder="Login" required autofocus/>
             </p>
             <p>
                 <input type="password" name="password" class="form-control" placeholder="Password" required />
@@ -32,7 +32,9 @@
                 <input type="checkbox" name="remember-me" />&nbsp;Remember Me
             </p>
             <p>
-                <input type="submit" value="Login" class="btn btn-primary" />
+                <a href="profile.html">
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </a>
             </p>
         </div>
     </form>
