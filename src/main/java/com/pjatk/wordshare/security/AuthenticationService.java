@@ -19,7 +19,6 @@ public class AuthenticationService {
         this.userSession = userSession;
         this.userService = userService;
     }
-    //dziala?
 
     public boolean login(String username, String password){
         if(userService.doesUserExist (username)){
