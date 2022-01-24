@@ -4,6 +4,8 @@ import com.pjatk.wordshare.entity.User;
 import com.pjatk.wordshare.repository.UserRepository;
 import com.pjatk.wordshare.security.Util.UserSession;
 import com.pjatk.wordshare.service.UserService;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +27,15 @@ public class AuthenticationService {
     public AuthenticationService (UserSession userSession, UserService userService) {
         this.userSession = userSession;
         this.userService = userService;
+    }
+
+    public boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || AnonymousAuthenticationToken.class.
+                isAssignableFrom(authentication.getClass())) {
+            return false;
+        }
+        return authentication.isAuthenticated();
     }
 
     public boolean login(String username, String password){

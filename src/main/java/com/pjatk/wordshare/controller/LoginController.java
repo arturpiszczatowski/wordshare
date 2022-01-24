@@ -3,10 +3,9 @@ package com.pjatk.wordshare.controller;
 import com.pjatk.wordshare.exception.UnauthorizedException;
 import com.pjatk.wordshare.login.LoginRequest;
 import com.pjatk.wordshare.security.AuthenticationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
@@ -17,6 +16,7 @@ public class LoginController {
     public LoginController(AuthenticationService authenticationService){
         this.authenticationService=authenticationService;
     }
+
 
     @PostMapping()
     public void login(LoginRequest loginRequest){
