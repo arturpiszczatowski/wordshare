@@ -1,63 +1,64 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Wordshare</title>
-    <link rel="stlesheet" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous" />
-    <meta name="viewport" content="width=device-width", initial-scale="1.0">
-</head>
-<body class="bg-secondary">
-<nav class="navbar navbar-expand-lg navbar-light bg-dark ">
-    <a class="navbar-brand text-light" href="/">WordShare</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link text-light" href="/">Home </a>
-            <a class="nav-item nav-link text-light" href="/login">Login <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link text-primary " href="register">Rejestracja <span class="sr-only">(current)</span></a>
-        </div>
-    </div>
-</nav>
+    <head>
+        <meta charset="UTF-8">
+        <title>Wordshare - Register</title>
+        <link rel="stlesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous" />
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    </head>
+    <body class="bg-secondary">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark ">
+            <a class="navbar-brand text-light" href="/">WordShare</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link text-light" href="/">Home </a>
+                    <a class="nav-item nav-link text-light" href="/login">Login <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link text-primary " href="register">Rejestracja <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link text-light" href="add_poem">Dodaj wiersz</a>
+                </div>
+            </div>
+        </nav>
 
 
-<div class="container"></div>
-<div class ="d-flex justify-content-center">
-    <h1>Rejestracja</h1>
-</div>
-<form th:action="@{/register}" method="post" style="max-width: 350px; margin: 0 auto;" class="bg-white">
-    <div class="user-details">
-        <div class="input-box">
-            <span class="details">First Name</span>
-            <input type="text" name="first_name" placeholder="Enter your name" class="form-control" required>
+        <div class="container"></div>
+        <div class ="d-flex justify-content-center">
+            <h1>Rejestracja</h1>
         </div>
-        <div class="input-box">
-            <span class="details">Last Name</span>
-            <input type="text" name="last_name" placeholder="Enter your name" class="form-control" required>
-        </div>
-        <div class="input-box">
-            <span class="details">Username</span>
-            <input type="text" name="username" placeholder="Enter your username" class="form-control" required>
-        </div>
-        <div class="input-box">
-            <span class="details">Email</span>
-            <input type="text" name="email" placeholder="Enter your email" class="form-control" required>
-        </div>
-        <div class="input-box">
-            <span class="details">Password</span>
-            <input type="text" name="password" placeholder="Enter your password" class="form-control" required>
-        </div>
-        <div class="input-box">
-            <span class="details">Confirm Password</span>
-            <input type="text" name="password" placeholder="Confirm your password" class="form-control" required>
-        </div>
-    </div>
-    <div class="button">
-        <input type="submit" value="Register" class="btn btn-primary">
-    </div>
-</form>
-</body>
+        <form th:action="@{/register}" method="post" style="max-width: 350px; margin: 0 auto;" class="bg-white">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">First Name</span>
+                    <input type="text" name="first_name" placeholder="Enter your name" class="form-control" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Last Name</span>
+                    <input type="text" name="last_name" placeholder="Enter your name" class="form-control" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Username</span>
+                    <input type="text" name="username" placeholder="Enter your username" class="form-control" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <input type="text" name="email" placeholder="Enter your email" class="form-control" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <input type="text" name="password" placeholder="Enter your password" class="form-control" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Confirm Password</span>
+                    <input type="text" name="password" placeholder="Confirm your password" class="form-control" required>
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Register" class="btn btn-primary">
+            </div>
+        </form>
+    </body>
 </html>

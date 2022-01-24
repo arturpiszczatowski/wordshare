@@ -1,6 +1,7 @@
 package com.pjatk.wordshare.security;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,9 +13,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers ("/login").permitAll ()
-                .antMatchers ("/register").permitAll ()
-                .antMatchers ("/profile").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
+                .antMatchers("/").permitAll ()
+                .antMatchers("/login").permitAll ()
+                .antMatchers("/register").permitAll ()
+                .antMatchers(HttpMethod.POST,"/api/poem").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.PUT,"/api/poem").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.DELETE,"/api/poem").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.POST,"/api/comment").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.PUT,"/api/comment").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.DELETE,"/api/comment").hasAuthority("ROLE_USER")
+                .antMatchers("/profile").hasAuthority("ROLE_USER")
                 .antMatchers("/api/*").hasAuthority("ROLE_ADMIN")
                 .and().csrf().disable();
     }
