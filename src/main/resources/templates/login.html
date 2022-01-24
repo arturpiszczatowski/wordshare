@@ -12,16 +12,19 @@
 <div class="container text-center">
     <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;" class="bg-white">
 
-        <div th:if="${param.error}">
-            <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
-        </div>
+        <span th:if="${logError != null}" class="error">Niepoprawny login lub hasło</span>
 
         <div th:if="${param.logout}">
             <p class="text-warning">Wylogowano.</p>
         </div>
 
         <div class="border border-secondary p-3 rounded">
-            <p>Logowanie do WordShare</p>
+            <p>
+                <h4>
+                    Logowanie do WordShare
+                </h4>
+            </p>
+
             <p>
                 <input type="text" name="username" class="form-control" placeholder="Login" required autofocus/>
             </p>
