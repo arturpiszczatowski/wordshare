@@ -24,7 +24,7 @@ public class RegisterController {
 
     @PostMapping
     @Transactional
-    public void register(@RequestBody RegisterRequest registerRequest, HttpServletResponse response){
+    public void register(RegisterRequest registerRequest, HttpServletResponse response){
 
         if(userService.doesUserExist (registerRequest.getUsername ())){
             response.setStatus (HttpStatus.CONFLICT.value ()); //User already exists.

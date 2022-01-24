@@ -43,14 +43,14 @@ public class CommentController {
     // create comment
     @PostMapping
     @Transactional
-    public void createComment(@RequestBody CommentRequest commentRequest, HttpServletResponse response){
+    public void createComment(CommentRequest commentRequest, HttpServletResponse response){
         commentService.create(commentRequest, response);
     }
 
     // update comment
     @PutMapping("/{id}")
     @Transactional
-    public void updateComment(@RequestBody CommentRequest commentRequest, @PathVariable("id") long commentId, HttpServletResponse response){
+    public void updateComment(CommentRequest commentRequest, @PathVariable("id") long commentId, HttpServletResponse response){
         commentService.edit(commentRequest, commentId, response);
     }
 

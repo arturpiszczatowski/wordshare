@@ -23,7 +23,7 @@ public class CommentService {
         this.entityManager = entityManager;
     }
 
-    public void create(@RequestBody CommentRequest commentRequest, HttpServletResponse response){
+    public void create(CommentRequest commentRequest, HttpServletResponse response){
         Comment comment = new Comment();
         User currentUser = findCurrentUser();
         Poem poem = entityManager.find(Poem.class, commentRequest.getPoem_id());
@@ -49,7 +49,7 @@ public class CommentService {
         }
     }
 
-    public void edit(@RequestBody CommentRequest commentRequest, long commentId, HttpServletResponse response){
+    public void edit(CommentRequest commentRequest, long commentId, HttpServletResponse response){
         User currentUser = findCurrentUser();
         Comment existingComment = entityManager.find(Comment.class, commentId);
         if(existingComment == null){
