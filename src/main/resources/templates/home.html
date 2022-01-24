@@ -22,13 +22,14 @@
             </div>
         </nav>
 
-    <ul>
-        <li th:each="poem :${poems}">
-            <span th:text="${poem.content}">Default</span>
-        </li>
-    </ul>
 
-
+        <div class="container text-center py-5">
+            <article class="mb-5 w-75 border border-dark rounded" th:each="poem :${poems}" style="background-color: #eee;">
+                <h2 class="blog-post-title" th:text="${poem.content}"></h2>
+                <p th:text="${poem.content}"></p>
+                <span th:text="${poem.comments}"></span>
+            </article>
+        </div>
 
     </body>
 </html>
