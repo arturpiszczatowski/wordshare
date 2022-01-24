@@ -1,24 +1,12 @@
 package com.pjatk.wordshare.controller;
 
-import com.pjatk.wordshare.entity.User;
 import com.pjatk.wordshare.security.AuthenticationService;
-<<<<<<< HEAD
-import com.pjatk.wordshare.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import com.pjatk.wordshare.service.PoemService;
->>>>>>> b9ce046857446e008828d4da2151d2afacb6ac29
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-<<<<<<< HEAD
-import java.security.Principal;
-=======
 import javax.servlet.http.HttpServletResponse;
->>>>>>> b9ce046857446e008828d4da2151d2afacb6ac29
 
 @Controller
 public class MainController {
