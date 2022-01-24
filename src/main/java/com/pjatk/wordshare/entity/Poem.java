@@ -9,7 +9,7 @@ public class Poem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "content")
     private String content;
@@ -33,11 +33,11 @@ public class Poem {
 
     }
 
-    public Long getId () {
+    public long getId () {
         return id;
     }
 
-    public void setId (Long id) {
+    public void setId (long id) {
         this.id = id;
     }
 

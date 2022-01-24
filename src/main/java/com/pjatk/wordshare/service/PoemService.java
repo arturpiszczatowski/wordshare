@@ -28,7 +28,7 @@ public class PoemService {
         this.entityManager = entityManager;
     }
 
-    public PoemView viewPoem(Long id, HttpServletResponse response){
+    public PoemView guwno(Long id, HttpServletResponse response){
         Poem poem = entityManager.find(Poem.class, id);
         if(poem == null){
             response.setStatus(HttpStatus.NOT_FOUND.value());
@@ -45,7 +45,7 @@ public class PoemService {
         }
     }
 
-    public void createPoem(@RequestBody Poem poem, HttpServletResponse response){
+    public void create(@RequestBody Poem poem, HttpServletResponse response){
         User currentUser = findCurrentUser();
         if(currentUser == null){
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -66,7 +66,7 @@ public class PoemService {
         }
     }
 
-    public Poem editPoem(@RequestBody Poem poem, HttpServletResponse response, long poemId){
+    public Poem edit(@RequestBody Poem poem, HttpServletResponse response, long poemId){
         User currentUser = findCurrentUser();
         Poem existingPoem = entityManager.find(Poem.class, poemId);
         if(existingPoem==null) {
@@ -93,7 +93,7 @@ public class PoemService {
         }
     }
 
-    public void deletePoem(HttpServletResponse response, long poemId){
+    public void delete(HttpServletResponse response, long poemId){
         User currentUser = findCurrentUser();
         Poem existingPoem = entityManager.find(Poem.class, poemId);
         if(existingPoem==null) {
