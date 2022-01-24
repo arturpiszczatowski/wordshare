@@ -42,7 +42,7 @@ public class AuthenticationService {
         if(userService.doesUserExist (username)){
             final User currentUser = userService.findUserByUsername (username);
             final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder ();
-            if(encoder.matches(password,currentUser.getPassword ())){
+            if(encoder.matches(password, currentUser.getPassword ())){
                 userSession.logIn();
                 User user = new User (currentUser.getUsername(), currentUser.getPassword(), userService.findUserByUsername(username).getAuthority());
                 SecurityContextHolder.getContext().setAuthentication(new AppAuthentication (user));
