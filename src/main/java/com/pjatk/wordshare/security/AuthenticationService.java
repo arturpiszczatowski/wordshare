@@ -1,18 +1,11 @@
 package com.pjatk.wordshare.security;
 
 import com.pjatk.wordshare.entity.User;
-import com.pjatk.wordshare.repository.UserRepository;
 import com.pjatk.wordshare.security.Util.UserSession;
 import com.pjatk.wordshare.service.UserService;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class AuthenticationService {
@@ -26,6 +19,7 @@ public class AuthenticationService {
         this.userSession = userSession;
         this.userService = userService;
     }
+    //dziala?
 
     public boolean login(String username, String password){
         if(userService.doesUserExist (username)){
