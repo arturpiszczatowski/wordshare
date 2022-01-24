@@ -34,7 +34,7 @@ public class UserController {
 
     // create user
     @PostMapping
-    public User createUser(@RequestBody User user){
+    public User createUser(User user){
         User newUser = new User ();
         newUser.setEmail (user.getEmail ());
         newUser.setFirstName (user.getFirstName ());
@@ -46,7 +46,7 @@ public class UserController {
 
     // update user
     @PutMapping("/{id}")
-    public User updateUser(@RequestBody User user, @PathVariable("id") long userId){
+    public User updateUser(User user, @PathVariable("id") long userId){
         User existingUser = this.userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id :" + userId));
         if(user.getFirstName () != null) existingUser.setFirstName(user.getFirstName());

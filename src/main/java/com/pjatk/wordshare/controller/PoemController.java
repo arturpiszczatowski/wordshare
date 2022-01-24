@@ -39,14 +39,14 @@ public class PoemController {
     // create poem
     @PostMapping
     @Transactional
-    public void postPoem(@RequestBody Poem poem, HttpServletResponse response){
+    public void postPoem(Poem poem, HttpServletResponse response){
         poemService.create(poem, response);
     }
 
     // update poem
     @PutMapping("/{id}")
     @Transactional
-    public Poem putPoem(@RequestBody Poem poem, @PathVariable("id") long poemId, HttpServletResponse response){
+    public Poem putPoem(Poem poem, @PathVariable("id") long poemId, HttpServletResponse response){
         return poemService.edit(poem, response, poemId);
     }
 
