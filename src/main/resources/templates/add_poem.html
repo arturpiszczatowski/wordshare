@@ -21,10 +21,24 @@
             </div>
         </div>
     </nav>
-    <form th:action="@{/api/poem}" method="post" style="max-width: 350px; margin: 0 auto;" class="bg-white">
-        <textarea cols="60" rows="15" name="content" tabindex="1" ></textarea>
 
-    </form>
+    <div class="container text-center">
+        <form th:action="@{/api/poem}" method="post" style="max-width: 350px; margin: 0 auto;" class="bg-white">
+            <span th:if="${emptyPoem != null}" class="error">Wiersz musi mieć treść!</span>
+
+            <div class="border border-secondary p-3 rounded">
+                <p>
+                    <h4>
+                        Dodaj wiersz
+                    </h4>
+                </p>
+                <textarea cols="30" rows="15" name="content" tabindex="1" ></textarea>
+                <a href="/">
+                    <input type="submit" value="Publikuj" class="btn btn-primary"/>
+                </a>
+            </div>
+        </form>
+    </div>
 
 
 </html>

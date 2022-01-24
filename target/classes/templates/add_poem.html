@@ -15,12 +15,30 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link text-light" href="/">Home </a>
-                <a class="nav-item nav-link text-light" href="/login">Login <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link text-light" href="/login">Login</a>
                 <a class="nav-item nav-link text-light " href="register">Rejestracja </a>
                 <a class="nav-item nav-link text-primary" href="add_poem">Dodaj wiersz<span class="sr-only">(current)</span></a>
             </div>
         </div>
     </nav>
+
+    <div class="container text-center">
+        <form th:action="@{/api/poem}" method="post" style="max-width: 350px; margin: 0 auto;" class="bg-white">
+            <span th:if="${emptyPoem != null}" class="error">Wiersz musi mieć treść!</span>
+
+            <div class="border border-secondary p-3 rounded">
+                <p>
+                    <h4>
+                        Dodaj wiersz
+                    </h4>
+                </p>
+                <textarea cols="30" rows="15" name="content" tabindex="1" ></textarea>
+                <a href="/">
+                    <input type="submit" value="Publikuj" class="btn btn-primary"/>
+                </a>
+            </div>
+        </form>
+    </div>
 
 
 </html>

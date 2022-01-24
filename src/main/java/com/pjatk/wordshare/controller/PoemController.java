@@ -33,7 +33,7 @@ public class PoemController {
     // get poem by id
     @GetMapping("/{id}")
     public PoemView getPoemById(@PathVariable(value = "id" ) long poemId, HttpServletResponse response){
-        return poemService.guwno(poemId, response); ///viewPoem
+        return poemService.view(poemId, response); ///viewPoem
     }
 
     // create poem

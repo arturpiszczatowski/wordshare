@@ -28,7 +28,7 @@ public class PoemService {
         this.entityManager = entityManager;
     }
 
-    public PoemView guwno(Long id, HttpServletResponse response){
+    public PoemView view(Long id, HttpServletResponse response){
         Poem poem = entityManager.find(Poem.class, id);
         if(poem == null){
             response.setStatus(HttpStatus.NOT_FOUND.value());
