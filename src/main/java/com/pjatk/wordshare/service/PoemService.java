@@ -13,10 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PoemService {
@@ -48,6 +45,7 @@ public class PoemService {
 
     public List<PoemView> viewAll(HttpServletResponse response){
         List<Poem> poemList = poemRepository.findAll();
+        Collections.reverse(poemList);
         List<PoemView> poemViewList = new ArrayList<>();
         if(poemList.isEmpty()){
             response.setStatus(HttpStatus.NOT_FOUND.value());
@@ -64,7 +62,7 @@ public class PoemService {
                 PoemView newView = new PoemView(poem.getId(), poem.getContent(), poem.getDate(), poem.getTitle(), poemComments);
                 poemViewList.add(newView);
             }
-        }
+        };
         return poemViewList;
     }
 

@@ -29,15 +29,15 @@
                 <h2 class="blog-post-title" style="font-family: Garamond, serif; font-size:200%; font-weight: bold;" th:text="${poem.title}" ></h2>
                 <p th:text="${poem.content}" style="font-family: 'Courier New', monospace; font-size:130%;"></p>
 <!--                th:action="@{/someUri/foo(message=${message})}"-->
-                <p th:each="comment :${poem.comments}" style="background-color: #eee"></p>
-                <form th:action="@{/api/comment/(${poem.id})}" method="post">
-                    <div>
-                        <textarea cols="30" rows="1" name="content" tabindex="1" ></textarea>
-                    </div>
-                    <div style="margin-left: 19%; padding-top: 2px">
-                    <input type="submit" value="Comment" style="font-face: 'Serif'; font-size: smaller; color: #000000; background-color: #d6c0ff;" required class="btn btn-primary"/>
-                    </div>
-                </form>
+<!--                <p th:each="comment :${poem.comments}" style="background-color: #eee"></p>-->
+<!--                <form th:action="@{/api/comment/(${poem.id})}" method="post">-->
+<!--                    <div>-->
+<!--                        <textarea cols="30" rows="1" name="content" tabindex="1" ></textarea>-->
+<!--                    </div>-->
+<!--                    <div style="margin-left: 19%; padding-top: 2px">-->
+<!--                    <input type="submit" value="Comment" style="font-face: 'Serif'; font-size: smaller; color: #000000; background-color: #d6c0ff;" required class="btn btn-primary"/>-->
+<!--                    </div>-->
+<!--                </form>-->
             </article>
         </div>
     </body>
