@@ -26,10 +26,6 @@
 
         <div class="container text-center">
             <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;" class="bg-white">
-
-                <span th:if="${logError != null}" class="error">Niepoprawny login lub hasło</span>
-                <span th:if="${notLogged != null}" class="error">Aby dodać wiersz musisz się zalogować!</span>
-
                 <div th:if="${param.logout}">
                     <p class="text-warning">Wylogowano.</p>
                 </div>
@@ -55,6 +51,8 @@
                             <input type="submit" value="Login" class="btn btn-primary" />
                         </a>
                     </p>
+                    <span th:if="${logError != null}" class="error text-danger">Niepoprawny login lub hasło!</span>
+                    <span th:if="${notLogged != null}" class="error text-danger">Aby dodać wiersz musisz się zalogować!</span>
                 </div>
             </form>
         </div>
