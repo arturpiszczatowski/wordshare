@@ -62,7 +62,7 @@ public class PoemService {
                 PoemView newView = new PoemView(poem.getId(), poem.getContent(), poem.getDate(), poem.getTitle(), poemComments);
                 poemViewList.add(newView);
             }
-        };
+        }
         return poemViewList;
     }
 
