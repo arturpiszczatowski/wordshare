@@ -13,7 +13,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").permitAll ()
+                .antMatchers("/home").permitAll ()
                 .antMatchers("/login").permitAll ()
                 .antMatchers("/register").permitAll ()
                 .antMatchers("/profile").hasAuthority("ROLE_USER")
@@ -25,5 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,"/api/comment").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.DELETE,"/api/comment").hasAuthority("ROLE_USER")
                 .and().csrf().disable();
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
     }
 }

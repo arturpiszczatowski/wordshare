@@ -1,13 +1,12 @@
 package com.pjatk.wordshare.controller;
 
-import com.pjatk.wordshare.exception.UnauthorizedException;
 import com.pjatk.wordshare.login.LoginRequest;
 import com.pjatk.wordshare.security.AuthenticationService;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 

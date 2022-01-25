@@ -1,14 +1,4 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Wordshare</title>
-</head>
-<body>
-<h1>Home page</h1>
-<a href="/login">Logowanie</a>
-<a href="/register">Rejestracja</a>
-<a href="/profile">Profil</a>
-</body>
     <head>
         <meta charset="UTF-8">
         <title>Wordshare</title>
@@ -25,10 +15,9 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link text-primary" href="/home">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link text-light" href="login">Login</a>
-                    <a class="nav-item nav-link text-light" href="register">Rejestracja</a>
-                    <a class="nav-item nav-link text-light" href="add_poem">Dodaj wiersz</a>
-                    <a class="nav-item nav-link text-light" href="profile">Profil</a>
+                    <a class="nav-item nav-link text-light" href="add_poem">ShareTheWord</a>
+                    <a class="nav-item nav-link text-light" href="profile">Profile</a>
+                    <a class="nav-item nav-link text-light" href="logout">Logout</a>
                 </div>
             </div>
         </nav>
@@ -41,6 +30,5 @@
                 <span th:text="${poem.comments}"></span>
             </article>
         </div>
-
     </body>
 </html>
