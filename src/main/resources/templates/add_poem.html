@@ -27,6 +27,7 @@
             <span th:if="${emptyPoem != null}" class="error">Wiersz musi mieć treść!</span>
 
             <div class="border border-secondary p-3 rounded">
+                <h2 th:if="${notLogged != null}" class="error text-danger">Błąd! Spróbuj ponownie.</h2>
                 <p>
                     <h4>
                         Tytuł: <input type="text" name="title">

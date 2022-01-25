@@ -5,12 +5,15 @@ import com.pjatk.wordshare.repository.PoemRepository;
 import com.pjatk.wordshare.service.PoemService;
 import com.pjatk.wordshare.view.PoemView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api/poem")
 public class PoemController {
 
@@ -39,8 +42,15 @@ public class PoemController {
     // create poem
     @PostMapping
     @Transactional
-    public void postPoem(Poem poem, HttpServletResponse response){
-        poemService.create(poem, response);
+    public String postPoem(Poem poem, HttpServletResponse response, Model model){
+        boolean isCreated = poemService.create(poem, response);
+        if(isCreated) {
+            model.addAttribute("poemCreated", "poemCreated");
+            return "home";
+        }else {
+            model.addAttribute("errPoem", "errPoem");
+            return "add_poem";
+        }
     }
 
     // update poem

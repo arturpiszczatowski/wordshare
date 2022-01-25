@@ -70,16 +70,19 @@ public class PoemService {
         return poemViewList;
     }
 
-    public void create(Poem poem, HttpServletResponse response){
+    public boolean create(Poem poem, HttpServletResponse response){
         User currentUser = findCurrentUser();
         if(currentUser == null){
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            return false;
         }else {
             if (poem.getContent() == null) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
+                return false;
             }
             if (poem.getTitle() == null) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
+                return false;
             } else {
                 Poem newPoem = new Poem();
                 Date currDate = new Date();
@@ -91,6 +94,7 @@ public class PoemService {
                 newPoem.setContent(poem.getContent());
                 response.setStatus(HttpStatus.CREATED.value());
                 entityManager.persist(newPoem);
+                return true;
             }
         }
     }

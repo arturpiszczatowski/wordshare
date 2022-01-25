@@ -6,7 +6,7 @@
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous" />
     </head>
-    <body class="bg-secondary">
+    <body class="bg-secondary text-center">
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
             <a class="navbar-brand text-light" href="/">WordShare</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@
             </div>
         </nav>
 
-
+        <h1 th:if="${poemCreated != null}" class="text-success">Pomyślnie dodano wiersz!</h1>
         <div class="container text-center py-5">
             <article class="mb-5 w-75 border border-dark rounded" th:each="poem :${poems}" style="background-color: #eee;">
                 <h2 class="blog-post-title" th:text="${poem.title}"></h2>
