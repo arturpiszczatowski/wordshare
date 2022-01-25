@@ -41,13 +41,15 @@ public class MainController {
 
     @GetMapping("/profile")
     public String profilePage(Model model, HttpServletResponse response){
-        if(authenticationService.isAuthenticated()){
-            User user = profileService.findCurrentUser();
-            Long userId = user.getId();
-            model.addAttribute("profile", profileService.view(userId, response));
-            return "profile";
+        if(!authenticationService.isAuthenticated()){
+            response.setStatus (HttpStatus.UNAUTHORIZED.value ());
+            model.addAttribute("profileNotLogged","profileNotLogged");
+            return "login";
         }
-        return "login";
+        User user = profileService.findCurrentUser();
+        Long userId = user.getId();
+        model.addAttribute("profile", profileService.view(userId, response));
+        return "profile";
     }
 
     @GetMapping("/register")

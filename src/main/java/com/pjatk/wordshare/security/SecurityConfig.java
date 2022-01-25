@@ -13,10 +13,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/home").permitAll ()
-                .antMatchers("/login").permitAll ()
-                .antMatchers("/register").permitAll ()
-                .antMatchers("/profile").hasAuthority("ROLE_USER")
+                .antMatchers("/home").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/register").permitAll()
                 .antMatchers("/api/poem").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.POST,"/api/poem").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.PUT,"/api/poem").hasAuthority("ROLE_USER")

@@ -37,18 +37,4 @@ public class ProfileController {
     public ProfileView getProfileById(@PathVariable(value = "id") long profileId, HttpServletResponse response){
         return profileService.view(profileId, response);
     }
-
-
-//    @GetMapping()
-//    public String profilePage(Model model){
-//        if(authenticationService.isAuthenticated()){
-//            User user = profileService.findCurrentUser();
-//            model.addAttribute("username", user.getUsername());
-//            model.addAttribute("firstname", user.getFirstName());
-//            model.addAttribute("lastname", user.getLastName());
-//            model.addAttribute("email", user.getEmail());
-//            return "profile";
-//        }
-//        return "login";
-//    }
 }

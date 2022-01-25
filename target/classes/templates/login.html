@@ -10,7 +10,7 @@
     </head>
     <body class="bg-secondary">
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-            <a class="navbar-brand text-light" href="/">WordShare</a>
+            <a class="navbar-brand text-light" href="/home">WordShare</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,19 +24,14 @@
 
         <div class="container text-center">
             <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;" class="bg-white">
-
-                <span th:if="${logError != null}" class="error">Niepoprawny login lub hasło</span>
-                <span th:if="${notLogged != null}" class="error">Aby dodać wiersz musisz się zalogować!</span>
-
                 <div th:if="${param.logout}">
                     <p class="text-warning">Wylogowano.</p>
                 </div>
-
                 <div class="border border-secondary p-3 rounded">
                     <p>
-                        <h4>
-                            Logowanie do WordShare
-                        </h4>
+                    <h4>
+                        Logowanie do WordShare
+                    </h4>
                     </p>
 
                     <p>
@@ -49,12 +44,19 @@
                         <input type="checkbox" name="remember-me" />&nbsp;Remember Me
                     </p>
                     <p>
-                        <a href="profile.html">
+                        <a href="home.html">
                             <input type="submit" value="Login" class="btn btn-primary" />
                         </a>
                     </p>
+                    <span th:if="${logError != null}" class="error text-danger">Incorrect login or password?</span>
+                    <span th:if="${notLogged != null}" class="error text-danger">You most be logged in to add poem.</span>
+                    <span th:if="${commentNotLogged != null}" class="error text-danger">You most be logged in to add comment.</span>
+                    <span th:if="${profileNotLogged != null}" class="error text-danger">You most be logged in to view profile.</span>
+                    <span th:if="${registered != null}" class="error text-success">Account succesfuly registered.</span>
+
                 </div>
             </form>
         </div>
     </body>
+
 </html>

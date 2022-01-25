@@ -4,6 +4,10 @@ public class CommentRequest {
     private String content;
     private long poem_id;
 
+    public CommentRequest(){
+
+    }
+
     public CommentRequest(String content, long poem_id) {
         this.content = content;
         this.poem_id = poem_id;
