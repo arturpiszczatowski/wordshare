@@ -1,6 +1,4 @@
-<html xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:le="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Wordshare Profile</title>
@@ -27,10 +25,10 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-10 mt-5 pt-5">
                 <div class="row z-depth-3">
-                    <div class="col-sm-4 bg-info rounded-left">
+                    <div class="col-sm-4 rounded-left" style="background-color: #6b4fe9">
                         <div class="card-block text-center text-white">
                             <i class="fas fa-user-tie fa-7x mt-5"></i>
-                            <h2 class="font-weight-bold mt-4"><span le:text="${username}"></span></h2>
+                            <h2 class="font-weight-bold mt-4"><span th:text="${profile.getUsername()}"></span></h2>
                             <p>Mad poet</p>
                             <i class="far fa-edit fa-2x mb-4"></i>
                         </div>
@@ -41,15 +39,15 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <p class="font-weight-bold">First name:</p>
-                                <h6 class="text-muted"><span le:text="${firstname}"></span></h6>
+                                <h6 class="text-muted"><span th:text="${profile.getFirstName()}"></span></h6>
                             </div>
                             <div class="col-sm-6">
                                 <p class="font-weight-bold">Last name:</p>
-                                <h6 class="text-muted"><span le:text="${lastname}"></span></h6>
+                                <h6 class="text-muted"><span th:text="${profile.getLastName()}"></span></h6>
                             </div>
                             <div class="col-sm-6">
                                 <p class="font-weight-bold">Email:</p>
-                                <h6 class="text-muted"><span le:text="${email}"></span></h6>
+                                <h6 class="text-muted"><span th:text="${profile.getEmail()}"></span></h6>
                             </div>
                         </div>
                         <h4 class="mt-3">WordsShared</h4>
@@ -57,7 +55,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <p class="font-weight-bold">Recent</p>
-                                <h6 class="text-muted">One ring to rule them all.</h6>
+                                <h6 class="text-muted"><span th:text="${profile.getRecentTitle()}">One ring to rule them all.</span></h6>
                             </div>
                             <div class="col-sm-6">
                                 <p class="font-weight-bold">Most viewed</p>

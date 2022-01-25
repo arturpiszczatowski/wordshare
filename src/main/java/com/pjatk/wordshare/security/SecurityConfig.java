@@ -24,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/api/comment").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.PUT,"/api/comment").hasAuthority("ROLE_USER")
                 .antMatchers(HttpMethod.DELETE,"/api/comment").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.POST,"/api/profile").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.PUT,"/api/profile").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.DELETE,"/api/profile").hasAuthority("ROLE_USER")
                 .and().csrf().disable();
         http.logout()
                 .logoutUrl("/logout")

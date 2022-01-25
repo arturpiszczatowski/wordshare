@@ -3,14 +3,12 @@ package com.pjatk.wordshare.service;
 import com.pjatk.wordshare.entity.Comment;
 import com.pjatk.wordshare.entity.Poem;
 import com.pjatk.wordshare.entity.User;
-import com.pjatk.wordshare.exception.ResourceNotFoundException;
 import com.pjatk.wordshare.repository.PoemRepository;
 import com.pjatk.wordshare.view.PoemView;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletResponse;
