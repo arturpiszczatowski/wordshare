@@ -27,6 +27,7 @@ public class MainController {
         return "home";
     }
 
+
     @GetMapping("/login")
     public String loginPage(Model model){
         if(authenticationService.isAuthenticated()){

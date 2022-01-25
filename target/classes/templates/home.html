@@ -24,7 +24,7 @@
 
 
         <div class="container text-center py-5">
-            <article class="mb-5 w-75 border border-dark rounded" th:each="poem :${poems}" style="background-color: #eee;">
+            <article class="mb-5 border border-dark rounded" th:each="poem :${poems}" style="background-color: #eee; background-color: #eee; max-width: 600px; margin: 0 auto;">
                 <h2 class="blog-post-title" th:text="${poem.content}"></h2>
                 <p th:text="${poem.content}"></p>
                 <span th:text="${poem.comments}"></span>
