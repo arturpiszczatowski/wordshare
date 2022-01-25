@@ -3,40 +3,35 @@ package com.pjatk.wordshare.controller;
 import com.pjatk.wordshare.entity.User;
 import com.pjatk.wordshare.repository.UserRepository;
 import com.pjatk.wordshare.security.AuthenticationService;
-import com.pjatk.wordshare.service.UserService;
+import com.pjatk.wordshare.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
 
     @Autowired
-    UserService userService;
+    ProfileService profileService;
 
+    @Autowired
+    UserRepository userRepository;
 
     private final AuthenticationService authenticationService;
 
-    public ProfileController(AuthenticationService authenticationService){
+    public ProfileController(AuthenticationService authenticationService, ProfileService profileService, UserRepository userRepository){
         this.authenticationService=authenticationService;
+        this.profileService=profileService;
+        this.userRepository=userRepository;
     }
 
     @GetMapping()
     public String profilePage(Model model){
         if(authenticationService.isAuthenticated()){
-            User user = userService.findCurrentUser();
+            User user = profileService.findCurrentUser();
             model.addAttribute("username", user.getUsername());
             model.addAttribute("firstname", user.getFirstName());
             model.addAttribute("lastname", user.getLastName());
