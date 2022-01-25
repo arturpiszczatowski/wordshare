@@ -19,7 +19,7 @@ public class MainController {
         this.poemService = poemService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String homePage(Model model, HttpServletResponse response) {
         model.addAttribute("poems", poemService.viewAll(response));
         return "home";

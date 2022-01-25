@@ -43,6 +43,6 @@ public class ProfileController {
             model.addAttribute("email", user.getEmail());
             return "profile";
         }
-        return "register";
+        return "login";
     }
 }

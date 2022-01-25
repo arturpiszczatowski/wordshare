@@ -1,18 +1,15 @@
 package com.pjatk.wordshare.controller;
 
 import com.pjatk.wordshare.entity.Comment;
-import com.pjatk.wordshare.request.CommentRequest;
 import com.pjatk.wordshare.exception.ResourceNotFoundException;
 import com.pjatk.wordshare.repository.CommentRepository;
+import com.pjatk.wordshare.request.CommentRequest;
 import com.pjatk.wordshare.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 @RestController
