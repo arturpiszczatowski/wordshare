@@ -44,7 +44,7 @@ public class PoemService {
                 e.printStackTrace();
             }
             response.setStatus(HttpStatus.OK.value());
-            return new PoemView(poem.getId(), poem.getContent(), poem.getDate(), poemComments);
+            return new PoemView(poem.getId(), poem.getContent(), poem.getDate(),  poem.getTitle(), poemComments);
         }
     }
 
@@ -63,7 +63,7 @@ public class PoemService {
                     e.printStackTrace();
                 }
                 response.setStatus(HttpStatus.OK.value());
-                PoemView newView = new PoemView(poem.getId(), poem.getContent(), poem.getDate(), poemComments);
+                PoemView newView = new PoemView(poem.getId(), poem.getContent(), poem.getDate(), poem.getTitle(), poemComments);
                 poemViewList.add(newView);
             }
         }
@@ -77,6 +77,9 @@ public class PoemService {
         }else {
             if (poem.getContent() == null) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
+            }
+            if (poem.getTitle() == null) {
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
             } else {
                 Poem newPoem = new Poem();
                 Date currDate = new Date();
@@ -84,6 +87,7 @@ public class PoemService {
                 newPoem.setRanking(0);
                 newPoem.setUser(currentUser);
                 newPoem.setDate(currDate.from(inst));
+                newPoem.setTitle(poem.getTitle());
                 newPoem.setContent(poem.getContent());
                 response.setStatus(HttpStatus.CREATED.value());
                 entityManager.persist(newPoem);
@@ -100,6 +104,7 @@ public class PoemService {
         }else{
             if(currentUser.getId()==existingPoem.getUser().getId()) {
                 if(poem.getContent() != null) {
+                    existingPoem.setTitle(poem.getTitle());
                     existingPoem.setContent(poem.getContent());
                     Date currDate = new Date();
                     Instant inst = Instant.now();

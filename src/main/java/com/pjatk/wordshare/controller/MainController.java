@@ -2,12 +2,10 @@ package com.pjatk.wordshare.controller;
 
 import com.pjatk.wordshare.security.AuthenticationService;
 import com.pjatk.wordshare.service.PoemService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -21,7 +19,7 @@ public class MainController {
         this.poemService = poemService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String homePage(Model model, HttpServletResponse response) {
         model.addAttribute("poems", poemService.viewAll(response));
         return "home";

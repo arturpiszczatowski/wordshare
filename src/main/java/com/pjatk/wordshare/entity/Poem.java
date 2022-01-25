@@ -14,6 +14,9 @@ public class Poem {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "ranking")
     private int ranking;
 
@@ -65,6 +68,13 @@ public class Poem {
         this.user = user;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Date getDate () {
         return date;
