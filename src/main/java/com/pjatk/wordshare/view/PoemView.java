@@ -7,13 +7,23 @@ public class PoemView {
     private Long id;
     private String content;
     private Date date;
+    private String title;
     private HashMap<Long, String> comments;
 
-    public PoemView(Long id, String content, Date date, HashMap<Long, String> comments) {
+    public PoemView(Long id, String content, Date date, String title, HashMap<Long, String> comments) {
         this.id = id;
+        this.title = title;
         this.content = content;
         this.date = date;
         this.comments = comments;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getId() {
